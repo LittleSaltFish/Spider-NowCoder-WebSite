@@ -5,7 +5,7 @@ import sqlite3 as sql
 app = Flask(__name__)
 
 
-DATABASE = "./static/Data.db"
+DATABASE = "/root/Code/Python/Spider-NowCoder-WebSite/static/Data.db"
 
 
 def connect_db():
@@ -40,7 +40,7 @@ def home():
         data.pop('Introduction') 
         ret.append(data)
     print(ret)
-    return render_template("home.html", data=ret)
+    return render_template("Home.html", data=ret)
 
 
 @app.route("/Analyse")
@@ -81,4 +81,4 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1',port=5001,debug=True)
+    app.run(host='0.0.0.0',port=5001)
