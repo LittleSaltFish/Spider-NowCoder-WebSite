@@ -16,15 +16,57 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="http://127.0.0.1:5001">牛客网 数据分析+查询 系统</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="jumbotron">
-        <h1 class="display-4">测试结果：{{result["result"].decode('utf-8')}}</h1>
-        <p class="lead">{{result["InputText"]}}</p>
-        <hr class="my-4">
-        <p>对于分层点评、好坏夹杂的评论，结果并不一定准确！</p>
-        <a class="btn btn-primary btn-lg" href="http://127.0.0.1:5000/test" role="button">再次测试</a>
-        <a class="btn btn-warning btn-lg" href="http://127.0.0.1:5000" role="button">回到首页</a>
-    </div>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://127.0.0.1:5001">回到首页</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://127.0.0.1:5001/Analyse">数据分析展示</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="http://localhost:5001/Result" method="POST">
+                <input class="form-control mr-sm-2" type="search" name="InputText" placeholder="搜索公司名称">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <h1 class="display-4">
+        <center>搜索结果：</center></h1>
+    <!-- <a class="btn btn-primary btn-lg" href="http://127.0.0.1:5001/Analyse" role="button">查看分析</a>
+    <a class="btn btn-warning btn-lg" href="http://127.0.0.1:5001" role="button">回到首页</a> -->
+    <hr class="my-4">
+    {%if Flag!=False %}
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                {% for key,value in Result[0].items() %}
+                <th scope="col">{{key}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in Result %}
+            <tr>
+                {% for key, value in result.items() %}
+                <td>{{value}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else	%}
+    <h2>未查询到相关结果</h2>
+    {% endif %}
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

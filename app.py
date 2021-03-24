@@ -5,7 +5,7 @@ import sqlite3 as sql
 app = Flask(__name__)
 
 
-DATABASE = "./static/CommentData.db"
+DATABASE = "./static/Data.db"
 
 
 def connect_db():
@@ -35,26 +35,39 @@ def teardown_request(exception):
 @app.route("/")
 def home():
     ret = []
-    for data in query_db("select * from CommentData ORDER BY RANDOM() limit 5"):
+    for data in query_db("select * from `NowCoder-Data` ORDER BY RANDOM() limit 20"):
+        data.pop('JobRequest')
+        data.pop('Introduction') 
         ret.append(data)
-        print(ret)
+    print(ret)
     return render_template("home.html", data=ret)
 
 
-@app.route("/DataAnalyse")
+@app.route("/Analyse")
 def student():
     return render_template("DataAnalyse.html")
 
 
-@app.route("/SearchResult", methods=["POST", "GET"])
+@app.route("/Result", methods=["POST", "GET"])
 def result():
     if request.method == "POST":
+        flag=False
+        result=[]
         print("=========================")
         print(f"input={request.form.get('InputText')}")
         input = request.form.get("InputText")
-        res = {"InputText": input, "result": SingleTest(input)}
-        print("=========================")
-        return render_template("result.html", result=res)
+        for data in query_db(f"select * from `NowCoder-Data` where Company like '%{input}%' ORDER BY RANDOM() limit 50"):
+            data.pop('JobRequest')
+            data.pop('Introduction') 
+            result.append(data)
+        for data in query_db(f"select * from `NowCoder-Data` where JobName like '%{input}%' ORDER BY RANDOM() limit 50"):
+            data.pop('JobRequest')
+            data.pop('Introduction')
+            result.append(data)
+        print(result)
+        if len(result)!=0:
+            flag=True
+        return render_template("SearchResult.html", Result=result,Flag=flag)
     else:
         print(request.method)
         print(f"input={request.form.get('InputText')}")
@@ -68,4 +81,4 @@ def result():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='127.0.0.1',port=5001,debug=True)
