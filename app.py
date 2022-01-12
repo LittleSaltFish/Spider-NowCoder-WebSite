@@ -5,7 +5,7 @@ import sqlite3 as sql
 app = Flask(__name__)
 
 
-DATABASE = "/root/Code/Python/Spider-NowCoder-WebSite/static/Data.db"
+DATABASE = "./static/Data.db"
 
 
 def connect_db():
