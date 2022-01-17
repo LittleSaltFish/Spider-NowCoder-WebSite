@@ -1,7 +1,7 @@
 # 搜索引擎作业-牛客网数据爬取/搜索引擎
 ## 在线浏览
-http://ncana.saltfish.link/
-## 求老师给高分 啊啊啊啊！！！
+http://service.saltfish.link:5001/
+## 求老师给高分！！！
 ![真的做了很久.jpg](https://z3.ax1x.com/2021/03/24/6bUFiQ.png)
 ## 工时统计
 ![数据来源：WakaTime](https://z3.ax1x.com/2021/03/24/6qspY6.png)
